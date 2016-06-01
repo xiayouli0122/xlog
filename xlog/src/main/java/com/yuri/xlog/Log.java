@@ -25,7 +25,7 @@ public class Log {
     }
 
     /**
-     * 支持格式化打印 比如 ： Log.v("title:%s,name:%s", title, name);
+     * format log: Log.v("title:%s,name:%s", title, name);
      * @param message message
      * @param args args
      */
@@ -39,9 +39,6 @@ public class Log {
         }
     }
 
-    /**
-     * 调用这个方法直接打印，不打印当前类名、方法名等
-     */
     public static void logv(String tag, String message, Object... args) {
         if (mSettings.isDebug) {
             if (args.length > 0) {
@@ -72,9 +69,6 @@ public class Log {
         }
     }
 
-    /**
-     * 直接打印，不打印当前类名、方法名等
-     */
     public static void logi(String tag, String message, Object... args) {
         if (mSettings.isDebug) {
             if (args.length > 0) {
@@ -105,9 +99,6 @@ public class Log {
         }
     }
 
-    /**
-     * 直接打印，不打印当前类名、方法名等
-     */
     public static void logd(String tag, String message, Object... args) {
         if (mSettings.isDebug) {
             if (args.length > 0) {
@@ -200,9 +191,6 @@ public class Log {
         }
     }
 
-    /**
-     * 网络接口log
-     */
     public static void lognet(String tag, String message, Object... args) {
         if (mSettings.isDebug) {
             if (args.length > 0) {
@@ -226,9 +214,8 @@ public class Log {
     }
 
     /**
-     * 获取调用的类名和方法名。
-     *
-     * @return String[0]为类名，String[1]为方法名。
+     * get class name,method name and so on.
+     * @return class name,method file name,line number
      */
     private static String[] getCaller() {
         String caller[] = new String[4];
