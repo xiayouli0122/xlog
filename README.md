@@ -57,6 +57,28 @@ for (int i = 0 ; i < 8; i++) {
 Log.object(list);
 ```
 
+### CrashHandler
+当程序出现崩溃时，保存error log到文件
+初始化方式
+```java
+CrashHandler.getInstance().init();
+```
+
+还可以将log写入到文件,log文件会保存到/sdcard/[tag] 目录下,其中tag为初始化时设置的tag信息
+#### 开始记录Log
+```java
+//Application onCreate()
+Log.startSaveToFile();
+```
+
+#### 停止记录Log
+```java
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        Log.stopAndSave();
+    }
+```
 更多方法请查看源码
 
 部分灵感来源
