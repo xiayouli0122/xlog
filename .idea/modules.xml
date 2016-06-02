@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/XLog.iml" filepath="$PROJECT_DIR$/XLog.iml" />
-      <module fileurl="file://$PROJECT_DIR$/xlog/app.iml" filepath="$PROJECT_DIR$/xlog/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/xlog/xlog.iml" filepath="$PROJECT_DIR$/xlog/xlog.iml" />
     </modules>

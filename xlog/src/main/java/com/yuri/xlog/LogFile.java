@@ -2,6 +2,8 @@ package com.yuri.xlog;
 
 import android.os.Environment;
 
+import com.yuri.xlog.util.Util;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

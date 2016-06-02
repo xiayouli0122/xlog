@@ -1,5 +1,7 @@
 package com.yuri.xlog;
 
+import com.yuri.xlog.util.Util;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;

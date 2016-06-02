@@ -1,4 +1,4 @@
-package com.yuri.xlog;
+package com.yuri.xlog.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

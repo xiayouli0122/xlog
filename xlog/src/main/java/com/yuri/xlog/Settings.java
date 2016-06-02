@@ -1,7 +1,5 @@
 package com.yuri.xlog;
 
-import android.util.Log;
-
 /**
  * @author Yuri
  */
@@ -9,11 +7,10 @@ public class Settings {
 
     protected String appTag;
     protected String netTag;
-    protected int methodOffset = 0;
 
     protected boolean showMethodLink = true;
 
-    protected boolean showThreadInfo = false;
+    protected boolean showThreadInfo = true;
 
     protected boolean isDebug = true;
 
@@ -23,11 +20,6 @@ public class Settings {
 
     private Settings() {
 
-    }
-
-    public Settings setMethodOffset(int methodOffset) {
-        this.methodOffset = methodOffset;
-        return this;
     }
 
     public Settings isShowThreadInfo(boolean showThreadInfo) {
@@ -46,12 +38,12 @@ public class Settings {
     }
 
     public Settings setAppTag(String tag) {
-        this.appTag = tag + "/";
+        this.appTag = tag;
         return this;
     }
 
     public Settings setNetTag(String netTag) {
-        this.netTag = netTag + "/";
+        this.netTag = netTag;
         return this;
     }
 }
