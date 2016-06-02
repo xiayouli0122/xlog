@@ -8,9 +8,6 @@ import android.util.Pair;
  */
 public final class ArrayParser {
 
-    /**
-     * 获取数组的纬度
-     */
     public static int getArrayDimension(Object objects) {
         int dim = 0;
         for (int i = 0; i < objects.toString().length(); ++i) {

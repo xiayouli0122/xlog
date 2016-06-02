@@ -24,9 +24,6 @@ public class Log {
         TAG = mSettings.appTag + "/";
     }
 
-    /**
-     * 没有任何参数的，打印时只会打印出当前方法名
-     */
     public static void v() {
         if (mSettings.isDebug) {
             String result[] = formatMessage("");
