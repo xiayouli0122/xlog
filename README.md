@@ -26,34 +26,35 @@ Log.initialize(
 ### 常用的Log打印方法
 ```java
 Log.i();
-        String title = "TITLE";
-        String name = "cats";
-        Log.d("title:%s,name:%s,items:%d", title, name, 22);
-        Log.d("url:%s", "http://www.baidu.com");
-        Log.v("my ssss");
-        Log.w("warning");
-        Log.e("error:%s", "errorcode msssage");
+String title = "TITLE";
+String name = "cats";
+Log.d("title:%s,name:%s,items:%d", title, name, 22);
+Log.d("url:%s", "http://www.baidu.com");
+Log.v("my ssss");
+Log.w("warning");
+Log.e("error:%s", "errorcode msssage");
 ```
 #### json
 
 ```java
 String json = "{\"addressLatitude\":\"31.246017\",\"addressLongitude\":\"121.609757\",\"city\":\"上海市\",\"province\":\"上海市\",\"header\":{\"clientVersion\":\"1.0.01\",\"requestTime\":1464845832926,\"serviceVersion\":\"1.0\",\"sourceID\":\"1000\",\"userToken\":\"24a4012f-d0de-44f7-9a21-24b62de13f9d\"}}";
-        Log.json(json);
+Log.json(json);
 ```
 
 #### object
+
 ```java
 UserInfo userInfo = new UserInfo();
         userInfo.userName = "lilei";
         userInfo.password = "123123";
         userInfo.age = 23;
-        Log.object(userInfo);
+Log.object(userInfo);
 
-        List<String> list = new ArrayList<>();
-        for (int i = 0 ; i < 8; i++) {
-            list.add("name" + i);
-        }
-        Log.object(list);
+List<String> list = new ArrayList<>();
+for (int i = 0 ; i < 8; i++) {
+     list.add("name" + i);
+}
+Log.object(list);
 ```
 
 更多方法请查看源码
