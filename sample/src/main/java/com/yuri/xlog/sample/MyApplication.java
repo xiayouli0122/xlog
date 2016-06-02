@@ -14,8 +14,8 @@ public class MyApplication extends Application {
 
         Log.initialize(
                 Settings.getInstance()
-                .isDebug(BuildConfig.DEBUG)
-                        .isShowMethodLink(false)
+                .isDebug(BuildConfig.LOG_DEBUG)
+                        .isShowMethodLink(true)
                         .isShowThreadInfo(true)
                 .setAppTag("Yuri")
                 .setNetTag("YuriNet")

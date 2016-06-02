@@ -10,7 +10,14 @@ import com.yuri.xlog.util.XmlJsonParser;
  * 能够自动打印出方法名以及类名
  */
 public class Log {
-    public static final int INDEX_BASE = 5;
+    public static final int INDEX_BASE = 6;
+
+    public static final int LOG_V = 0;
+    public static final int LOG_I = 1;
+    public static final int LOG_D = 2;
+    public static final int LOG_W = 3;
+    public static final int LOG_E = 4;
+    public static final int LOG_N = 5;
 
     public static Settings mSettings;
     private static LogFile mLogFile;
@@ -25,10 +32,7 @@ public class Log {
     }
 
     public static void v() {
-        if (mSettings.isDebug) {
-            String result[] = formatMessage("");
-            logv(result[0], result[1]);
-        }
+        print(LOG_V, "");
     }
 
     /**
@@ -37,13 +41,7 @@ public class Log {
      * @param args args
      */
     public static void v(String message, Object... args) {
-        if (mSettings.isDebug) {
-            if (args.length > 0) {
-                message = String.format(message, args);
-            }
-            String result[] = formatMessage(message);
-            logv(result[0], result[1]);
-        }
+        print(LOG_V, message, args);
     }
 
     /**
@@ -67,20 +65,11 @@ public class Log {
     }
 
     public static void i() {
-        if (mSettings.isDebug) {
-            String result[] = formatMessage("");
-            logi(result[0], result[1]);
-        }
+        print(LOG_I, "");
     }
 
     public static void i(String message, Object... args) {
-        if (mSettings.isDebug) {
-            if (args.length > 0) {
-                message = String.format(message, args);
-            }
-            String result[] = formatMessage(message);
-            logi(result[0], result[1]);
-        }
+        print(LOG_I, message, args);
     }
 
     public static void logi(String message, Object... args) {
@@ -101,20 +90,11 @@ public class Log {
     }
 
     public static void d() {
-        if (mSettings.isDebug) {
-            String result[] = formatMessage("");
-            logd(result[0], result[1]);
-        }
+        print(LOG_D, "");
     }
 
     public static void d(String message, Object... args) {
-        if (mSettings.isDebug) {
-            if (args.length > 0) {
-                message = String.format(message, args);
-            }
-            String result[] = formatMessage(message);
-            logd(result[0], result[1]);
-        }
+        print(LOG_D, message, args);
     }
 
     public static void logd(String message, Object... args) {
@@ -135,20 +115,11 @@ public class Log {
     }
 
     public static void w() {
-        if (mSettings.isDebug) {
-            String result[] = formatMessage("");
-            logw(result[0], result[1]);
-        }
+        print(LOG_W, "");
     }
 
     public static void w(String message, Object... args) {
-        if (mSettings.isDebug) {
-            if (args.length > 0) {
-                message = String.format(message, args);
-            }
-            String result[] = formatMessage(message);
-            logw(result[0], result[1]);
-        }
+        print(LOG_W, message, args);
     }
 
     public static void logw(String message, Object... args) {
@@ -169,16 +140,11 @@ public class Log {
     }
 
     public static void e() {
-        String result[] = formatMessage("");
-        loge(result[0], result[1]);
+        print(LOG_E, "");
     }
 
     public static void e(String message, Object... args) {
-        if (args.length > 0) {
-            message = String.format(message, args);
-        }
-        String result[] = formatMessage(message);
-        loge(result[0], result[1]);
+        print(LOG_E, message, args);
     }
 
     public static void e(Exception e) {
@@ -205,20 +171,11 @@ public class Log {
     }
 
     public static void net() {
-        if (mSettings.isDebug) {
-            String result[] = formatMessage("");
-            lognet(result[0], result[1]);
-        }
+        print(LOG_N, "");
     }
 
     public static void net(String message, Object... args) {
-        if (mSettings.isDebug) {
-            if (args.length > 0) {
-                message = String.format(message, args);
-            }
-            String result[] = formatMessage(message);
-            lognet(result[0], result[1]);
-        }
+        print(LOG_N, message, args);
     }
 
     public static void lognet(String tag, String message, Object... args) {
@@ -234,12 +191,45 @@ public class Log {
         }
     }
 
+    private static void print(int priority, String message, Object... args) {
+        if (!mSettings.isDebug && priority != LOG_E) {
+            //非error级别的log，只能在debug环境下打印
+            return;
+        }
+
+        if (args.length > 0) {
+            message = String.format(message, args);
+        }
+
+        String result[] = formatMessage(message);
+        switch (priority) {
+            case LOG_V:
+                logv(result[0], result[1]);
+                break;
+            case LOG_I:
+                logi(result[0], result[1]);
+                break;
+            case LOG_D:
+                logd(result[0], result[1]);
+                break;
+            case LOG_W:
+                logw(result[0], result[1]);
+                break;
+            case LOG_E:
+                loge(result[0], result[1]);
+                break;
+            case LOG_N:
+                lognet(result[0], result[1]);
+                break;
+        }
+    }
+
     /**
      * 格式化打印Json数据，方便你阅读Logcat JSON数据
      */
     public static void json(String json) {
         if (mSettings.isDebug) {
-            Log.d(XmlJsonParser.json(json));
+            print(LOG_D, XmlJsonParser.json(json));
         }
     }
 
@@ -248,7 +238,7 @@ public class Log {
      */
     public static void xml(String xml) {
         if (mSettings.isDebug) {
-            Log.d(XmlJsonParser.xml(xml));
+            print(LOG_D, XmlJsonParser.xml(xml));
         }
     }
 
@@ -257,7 +247,7 @@ public class Log {
      */
     public static void object(Object object) {
         if (mSettings.isDebug) {
-            Log.d(ObjParser.parseObj(object));
+            print(LOG_D, ObjParser.parseObj(object));
         }
     }
 

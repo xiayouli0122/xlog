@@ -2,6 +2,7 @@ package com.yuri.xlog.sample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.yuri.xlog.Log;
 import com.yuri.xlog.Settings;
@@ -40,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
             list.add("name" + i);
         }
         Log.object(list);
+
+
+        findViewById(R.id.btn_test)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("test btn has clicked");
+                    }
+                });
 
     }
 }
