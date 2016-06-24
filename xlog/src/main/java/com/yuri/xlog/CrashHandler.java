@@ -41,7 +41,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }
         String log = writer.toString();
         printWriter.close();
-        Log.e(TAG, log);
+        Log.loge(TAG, log);
 
         String time = Util.getTime();
         LogFile logFile = new LogFile("error_log_" + time + ".txt");

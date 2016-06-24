@@ -1,12 +1,13 @@
 package com.yuri.xlog;
 
 /**
+ * Log Setting
  * @author Yuri
  */
 public class Settings {
 
-    protected String appTag;
-    protected String netTag;
+    protected String appTag = "Yuri";
+    protected String netTag = "YuriNet";
 
     protected boolean showMethodLink = true;
 
@@ -22,13 +23,35 @@ public class Settings {
 
     }
 
+    /**
+     * @deprecated see {@link Settings#hideThreadInfo()}
+     */
     public Settings isShowThreadInfo(boolean showThreadInfo) {
         this.showThreadInfo = showThreadInfo;
         return this;
     }
 
+    /**
+     * @deprecated see {@link Settings#hideMethodLink()}
+     */
     public Settings isShowMethodLink(boolean showMethodLink) {
         this.showMethodLink = showMethodLink;
+        return this;
+    }
+
+    /**
+     * default is show
+     */
+    public Settings hideMethodLink() {
+        this.showMethodLink = false;
+        return this;
+    }
+
+    /**
+     * default is show
+     */
+    public Settings hideThreadInfo() {
+        this.showThreadInfo = false;
         return this;
     }
 
@@ -37,11 +60,18 @@ public class Settings {
         return this;
     }
 
+    /**
+     * set for common log tag,default is "Yuri"
+     */
     public Settings setAppTag(String tag) {
         this.appTag = tag;
         return this;
     }
 
+    /**
+     * set for net log tag
+     * default tag is "YuriNet"
+     */
     public Settings setNetTag(String netTag) {
         this.netTag = netTag;
         return this;

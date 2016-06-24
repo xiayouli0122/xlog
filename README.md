@@ -5,10 +5,10 @@ Android Log Library
 
 ###使用方法
 ```grovvy
-compile 'com.yuri.xlog:xlog:0.1.1'
+compile 'com.yuri.xlog:xlog:1.0.1'
 ```
 
-（回答某位网友的提供：不支持Eclipse，谢谢）
+（回答某位网友的提问：不支持Eclipse，谢谢）
 
 ###初始化
 
@@ -18,8 +18,10 @@ compile 'com.yuri.xlog:xlog:0.1.1'
 Log.initialize(
                 Settings.getInstance()
                 .isDebug(BuildConfig.DEBUG)
-                        .isShowMethodLink(false)
-                        .isShowThreadInfo(true)
+//隐藏方法链接，默认显示的
+                        //.hideMethodLink()
+//隐藏线程信息，默认显示的
+                        //.hideThreadInfo()
                 .setAppTag("Yuri")
                 .setNetTag("YuriNet")
         );

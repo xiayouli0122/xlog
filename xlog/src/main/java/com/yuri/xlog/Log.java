@@ -193,7 +193,6 @@ public class Log {
 
     private static void print(int priority, String message, Object... args) {
         if (!mSettings.isDebug && priority != LOG_E) {
-            //非error级别的log，只能在debug环境下打印
             return;
         }
 
