@@ -44,9 +44,9 @@ publish {
     //项目名称
     artifactId = 'xlog'
     //版本号
-    publishVersion = '1.0.1'
+    publishVersion = '1.0.2'
     //描述，不重要
-    desc = '简化设置'
+    desc = '支持log长度超过4000个字符的输出'
     //网站，不重要
     website = 'https://github.com/xiayouli0122/xlog'
 

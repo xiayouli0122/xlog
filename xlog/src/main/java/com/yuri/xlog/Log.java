@@ -26,6 +26,13 @@ public class Log {
 
     private static String TAG;
 
+    /**
+     * Android's max limit for a log entry is ~4076 bytes,
+     * so 4000 bytes is used as chunk size since default charset
+     * is UTF-8
+     */
+    public static final int CHUNK_SIZE = 4000;
+
     public static void initialize(Settings settings) {
         mSettings = settings;
         TAG = mSettings.appTag + "/";
@@ -56,6 +63,20 @@ public class Log {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
+
+            byte[] bytes = message.getBytes();
+            int length = bytes.length;
+
+            if (length <= CHUNK_SIZE) {
+                android.util.Log.v(TAG + tag, message);
+                return;
+            }
+
+            for (int i = 0; i < length; i += CHUNK_SIZE) {
+                int count = Math.min(length - i, CHUNK_SIZE);
+                //create a new String with system's default charset (which is UTF-8 for Android)
+                android.util.Log.d(TAG + tag, new String(bytes, i, count));
+            }
             android.util.Log.v(TAG + tag, message);
         }
 
@@ -81,7 +102,20 @@ public class Log {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
-            android.util.Log.i(TAG + tag, message);
+
+            byte[] bytes = message.getBytes();
+            int length = bytes.length;
+
+            if (length <= CHUNK_SIZE) {
+                android.util.Log.i(TAG + tag, message);
+                return;
+            }
+
+            for (int i = 0; i < length; i += CHUNK_SIZE) {
+                int count = Math.min(length - i, CHUNK_SIZE);
+                //create a new String with system's default charset (which is UTF-8 for Android)
+                android.util.Log.i(TAG + tag, new String(bytes, i, count));
+            }
         }
 
         if (mIsWriteToFile && mLogFile != null) {
@@ -106,7 +140,20 @@ public class Log {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
-            android.util.Log.d(TAG + tag, message);
+
+            byte[] bytes = message.getBytes();
+            int length = bytes.length;
+
+            if (length <= CHUNK_SIZE) {
+                android.util.Log.d(TAG + tag, message);
+                return;
+            }
+
+            for (int i = 0; i < length; i += CHUNK_SIZE) {
+                int count = Math.min(length - i, CHUNK_SIZE);
+                //create a new String with system's default charset (which is UTF-8 for Android)
+                android.util.Log.d(TAG + tag, new String(bytes, i, count));
+            }
         }
 
         if (mIsWriteToFile && mLogFile != null) {
@@ -183,7 +230,20 @@ public class Log {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
-            android.util.Log.d(mSettings.netTag + "/" + tag, message);
+
+            byte[] bytes = message.getBytes();
+            int length = bytes.length;
+
+            if (length <= CHUNK_SIZE) {
+                android.util.Log.d(TAG + tag, message);
+                return;
+            }
+
+            for (int i = 0; i < length; i += CHUNK_SIZE) {
+                int count = Math.min(length - i, CHUNK_SIZE);
+                //create a new String with system's default charset (which is UTF-8 for Android)
+                android.util.Log.d(mSettings.netTag + "/" + tag, new String(bytes, i, count));
+            }
         }
 
         if (mIsWriteToFile && mLogFile != null) {
