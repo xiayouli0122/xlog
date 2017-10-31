@@ -1,16 +1,16 @@
 # xlog
 Android Log Library
 
-##帮你更方便的打印Log
+## 帮你更方便的打印Log
 
-###使用方法
+### 使用方法
 ```grovvy
 compile 'com.yuri.xlog:xlog:1.0.1'
 ```
 
 （回答某位网友的提问：不支持Eclipse，谢谢）
 
-###初始化
+### 初始化
 
 在Application onCreate中进行初始化
 
