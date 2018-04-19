@@ -4,10 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.yuri.xlog.Log;
-import com.yuri.xlog.Settings;
-import com.yuri.xlog.util.ObjParser;
-import com.yuri.xlog.util.XmlJsonParser;
+import com.yuri.xlog.XLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,35 +16,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.i();
+        XLog.i();
         String title = "TITLE";
         String name = "cats";
-        Log.d("title:%s,name:%s,items:%d", title, name, 22);
-        Log.d("url:%s", "http://www.baidu.com");
-        Log.v("my ssss");
-        Log.w("warning");
-        Log.e("error:%s", "errorcode msssage");
+        XLog.d("title:%s,name:%s,items:%d", title, name, 22);
+        XLog.d("url:%s", "http://www.baidu.com");
+        XLog.v("my ssss");
+        XLog.w("warning");
+        XLog.e("error:%s", "errorcode msssage");
 
         String json = "{\"addressLatitude\":\"31.246017\",\"addressLongitude\":\"121.609757\",\"city\":\"上海市\",\"province\":\"上海市\",\"header\":{\"clientVersion\":\"1.0.01\",\"requestTime\":1464845832926,\"serviceVersion\":\"1.0\",\"sourceID\":\"1000\",\"userToken\":\"24a4012f-d0de-44f7-9a21-24b62de13f9d\"}}";
-        Log.json(json);
+        XLog.json(json);
         UserInfo userInfo = new UserInfo();
         userInfo.userName = "lilei";
         userInfo.password = "123123";
         userInfo.age = 23;
-        Log.object(userInfo);
+        XLog.object(userInfo);
 
         List<String> list = new ArrayList<>();
         for (int i = 0 ; i < 8; i++) {
             list.add("name" + i);
         }
-        Log.object(list);
+        XLog.object(list);
 
+        XLog.net("This is a net log");
 
         findViewById(R.id.btn_test)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.i("test btn has clicked");
+                        XLog.i("test btn has clicked");
                     }
                 });
 
@@ -138,6 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 "raymon725 发布于2016-07-27 11:12:10 | 582 次阅读\n" +
                 "\n" +
                 "IDC最近公布了一份2015年云市场调研报告，估计全球在商业云系统管理软件和软件即服务（SaaS）解决方案上的开支增长了24.6%（总额29亿美元）。IDC还预测，到2017年末的时候，会有超过80%的企业IT组织会采用横跨公共云、私有云、或非云服务的混合架构。而在“云优先、移动优先”的政策驱动下，微软公司也在榜单中名列前茅。";
-        Log.d(longstr);
+        XLog.d(longstr);
     }
 }

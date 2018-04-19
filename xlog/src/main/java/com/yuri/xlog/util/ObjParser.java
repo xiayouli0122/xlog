@@ -9,10 +9,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author Kale
- * @date 2016/3/23
- */
 public class ObjParser {
 
     // 基本数据类型

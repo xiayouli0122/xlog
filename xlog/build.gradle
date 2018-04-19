@@ -44,10 +44,16 @@ publish {
     //项目名称
     artifactId = 'xlog'
     //版本号
-    publishVersion = '1.0.2'
+    publishVersion = '1.1.0'
     //描述，不重要
-    desc = '支持log长度超过4000个字符的输出'
+    desc = '修改类名'
     //网站，不重要
     website = 'https://github.com/xiayouli0122/xlog'
 
 }
+
+//其中PbintryUser是 bintray.com的用户名
+//PbintrayKey 是 bintray.com 是 API KEY
+//然后执行下面这条命令就可以上传了
+//gradlew clean build bintrayUpload -PbintrayUser=xxxx -PbintrayKey=xxxx -PdryRun=false
+

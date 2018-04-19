@@ -2,8 +2,8 @@ package com.yuri.xlog.sample;
 
 import android.app.Application;
 
-import com.yuri.xlog.CrashHandler;
-import com.yuri.xlog.Log;
+import com.yuri.xlog.XLogCrashHandler;
+import com.yuri.xlog.XLog;
 import com.yuri.xlog.Settings;
 
 public class MyApplication extends Application {
@@ -12,15 +12,14 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Log.initialize(
+        XLog.initialize(
                 Settings.getInstance()
                 .isDebug(BuildConfig.LOG_DEBUG)
                 .setAppTag("Yuri")
-                .setNetTag("YuriNet")
         );
 
         if (BuildConfig.DEBUG) {
-            CrashHandler.getInstance().init();
+            XLogCrashHandler.getInstance().init();
 //            Log.startSaveToFile();
         }
     }
@@ -28,7 +27,7 @@ public class MyApplication extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        Log.d();
+        XLog.d();
 //        Log.stopAndSave();
     }
 }

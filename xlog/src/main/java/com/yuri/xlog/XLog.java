@@ -9,15 +9,15 @@ import com.yuri.xlog.util.XmlJsonParser;
  * Log相关封装 <br>
  * 能够自动打印出方法名以及类名
  */
-public class Log {
-    public static final int INDEX_BASE = 6;
+public class XLog {
+    private static final int INDEX_BASE = 6;
 
-    public static final int LOG_V = 0;
-    public static final int LOG_I = 1;
-    public static final int LOG_D = 2;
-    public static final int LOG_W = 3;
-    public static final int LOG_E = 4;
-    public static final int LOG_N = 5;
+    private static final int LOG_V = 0;
+    private static final int LOG_I = 1;
+    private static final int LOG_D = 2;
+    private static final int LOG_W = 3;
+    private static final int LOG_E = 4;
+    private static final int LOG_N = 5;
 
     public static Settings mSettings;
     private static LogFile mLogFile;
@@ -36,6 +36,9 @@ public class Log {
     public static void initialize(Settings settings) {
         mSettings = settings;
         TAG = mSettings.appTag + "/";
+        if (mSettings.netTag == null) {
+            mSettings.netTag = mSettings.appTag;
+        }
     }
 
     public static void v() {
@@ -361,7 +364,7 @@ public class Log {
                 .getStackTrace();
         if (traceElements != null) {
             for (StackTraceElement element : traceElements) {
-                Log.logd(mSettings.appTag, element.toString());
+                XLog.logd(mSettings.appTag, element.toString());
             }
         }
     }
@@ -370,7 +373,7 @@ public class Log {
         StackTraceElement[] traceElements = e.getStackTrace();
         if (traceElements != null) {
             for (StackTraceElement element : traceElements) {
-                Log.loge(mSettings.appTag, element.toString());
+                XLog.loge(mSettings.appTag, element.toString());
             }
         }
     }

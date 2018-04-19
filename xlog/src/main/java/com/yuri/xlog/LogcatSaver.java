@@ -8,9 +8,9 @@ import java.io.InputStreamReader;
  * This class is used for saving android logcat log to file.
  */
 public class LogcatSaver {
-	private static final String TAG = Log.mSettings.appTag + "LogcatSaver";
+	private static final String TAG = XLog.mSettings.appTag + "/LogcatSaver";
 	private boolean mRunning = false;
-	private Process mLogcatProc = null;
+	private Process mLogcatProcess = null;
 	private BufferedReader mReader = null;
 	private LogFile mLogFile;
 
@@ -48,13 +48,13 @@ public class LogcatSaver {
 		public void run() {
 
 			try {
-				Log.logd(TAG, "start run()");
-				mLogcatProc = Runtime.getRuntime().exec("logcat -v time -d");
-				Log.logd(TAG, "start successs.");
+				XLog.logd(TAG, "start run()");
+				mLogcatProcess = Runtime.getRuntime().exec("logcat -v time -d");
+				XLog.logd(TAG, "start successs.");
 				mReader = new BufferedReader(new InputStreamReader(
-						mLogcatProc.getInputStream()), 1024);
+						mLogcatProcess.getInputStream()), 1024);
 				String line;
-				Log.logd(TAG,
+				XLog.logd(TAG,
 						"mRunning = " + mRunning + ", readLine = "
 								+ mReader.readLine());
 				while (mRunning && (line = mReader.readLine()) != null) {
@@ -68,21 +68,21 @@ public class LogcatSaver {
 					mLogFile.writeLog(line + "\n");
 				}
 			} catch (IOException e) {
-				Log.loge(TAG, "error reading log" + e);
+				XLog.loge(TAG, "error reading log" + e);
 				return;
 			} finally {
-				Log.logd(TAG, "stopped");
+				XLog.logd(TAG, "stopped");
 
-				if (mLogcatProc != null) {
-					mLogcatProc.destroy();
-					mLogcatProc = null;
+				if (mLogcatProcess != null) {
+					mLogcatProcess.destroy();
+					mLogcatProcess = null;
 				}
 				if (mReader != null) {
 					try {
 						mReader.close();
 						mReader = null;
 					} catch (IOException e) {
-						Log.loge(TAG, "error closing stream" + e);
+						XLog.loge(TAG, "error closing stream" + e);
 					}
 				}
 			}

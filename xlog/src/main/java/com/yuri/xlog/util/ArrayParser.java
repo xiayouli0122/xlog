@@ -2,10 +2,6 @@ package com.yuri.xlog.util;
 
 import android.util.Pair;
 
-/**
- * Created by pengwei08 on 2015/7/25.
- * Thanks to zhutiantao for providing an array of analytical methods.
- */
 public final class ArrayParser {
 
     public static int getArrayDimension(Object objects) {

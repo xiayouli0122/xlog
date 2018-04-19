@@ -4,9 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created by Yuri on 2016/5/31.
- */
 public class Util {
 
     public static String getTime() {

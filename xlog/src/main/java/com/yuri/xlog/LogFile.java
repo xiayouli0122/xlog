@@ -26,13 +26,13 @@ import java.nio.charset.Charset;
  * 
  */
 public class LogFile {
-    private static final String TAG = Log.mSettings.appTag + "LogFile";
+    private static final String TAG = XLog.mSettings.appTag + "LogFile";
     private File mFile;
     private FileWriter mWriter;
     public static final String LOG_FOLDER_NAME = Environment
             .getExternalStorageDirectory().getAbsolutePath()
             + File.separator
-            + Log.mSettings.appTag
+            + XLog.mSettings.appTag
             + File.separator
             + "Log";
 
@@ -63,7 +63,7 @@ public class LogFile {
      */
     public boolean open() {
         if (mFile == null) {
-            Log.e(TAG, "mFile is null");
+            XLog.e(TAG, "mFile is null");
             return false;
         }
 
@@ -81,7 +81,7 @@ public class LogFile {
         try {
             mWriter = new FileWriter(mFile);
         } catch (IOException e) {
-            Log.e(TAG, "Open file error. " + e);
+            XLog.e(TAG, "Open file error. " + e);
         }
         return mWriter != null;
     }
@@ -127,9 +127,6 @@ public class LogFile {
 
     /**
      * bytes to chars
-     * 
-     * @param bytes
-     * @return
      */
     public static char[] getChars(byte[] bytes) {
         Charset cs = Charset.forName("UTF-8");

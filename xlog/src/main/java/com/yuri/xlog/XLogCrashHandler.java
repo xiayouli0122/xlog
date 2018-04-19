@@ -7,12 +7,12 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
 
-public class CrashHandler implements UncaughtExceptionHandler {
-    private static final String TAG = Log.mSettings.appTag + "CrashHandler";
-    private static CrashHandler mInstance = new CrashHandler();
+public class XLogCrashHandler implements UncaughtExceptionHandler {
+    private static final String TAG = XLog.mSettings.appTag + "/CrashHandler";
+    private static XLogCrashHandler mInstance = new XLogCrashHandler();
     private UncaughtExceptionHandler mDefaultHandler;
 
-    public static CrashHandler getInstance() {
+    public static XLogCrashHandler getInstance() {
         return mInstance;
     }
 
@@ -41,7 +41,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }
         String log = writer.toString();
         printWriter.close();
-        Log.loge(TAG, log);
+        XLog.loge(TAG, log);
 
         String time = Util.getTime();
         LogFile logFile = new LogFile("error_log_" + time + ".txt");

@@ -19,10 +19,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-/**
- * @author Kale
- * @date 2016/3/23
- */
 public class XmlJsonParser {
 
     /**

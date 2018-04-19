@@ -6,14 +6,14 @@ package com.yuri.xlog;
  */
 public class Settings {
 
-    protected String appTag = "Yuri";
-    protected String netTag = "YuriNet";
+    String appTag = "Yuri";
+    String netTag = null;
 
-    protected boolean showMethodLink = true;
+    boolean showMethodLink = true;
 
-    protected boolean showThreadInfo = true;
+    boolean showThreadInfo = true;
 
-    protected boolean isDebug = true;
+    boolean isDebug = true;
 
     public static Settings getInstance() {
         return new Settings();
