@@ -7,7 +7,7 @@ package com.yuri.xlog;
 public class Settings {
 
     String appTag = "Yuri";
-    String netTag = null;
+    String netTag = "YuriNet";
 
     boolean showMethodLink = true;
 

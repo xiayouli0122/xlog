@@ -2,12 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 26
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 23
+        minSdkVersion 16
+        targetSdkVersion 26
     }
     buildTypes {
         release {
@@ -32,8 +31,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
 }
 
 publish {
@@ -44,7 +41,7 @@ publish {
     //项目名称
     artifactId = 'xlog'
     //版本号
-    publishVersion = '1.1.0'
+    publishVersion = '1.1.1'
     //描述，不重要
     desc = '修改类名'
     //网站，不重要
@@ -53,7 +50,7 @@ publish {
 }
 
 //其中PbintryUser是 bintray.com的用户名
-//PbintrayKey 是 bintray.com 是 API KEY
+//PbintrayKey 是 bintray.com 是 API KEY(去bintray.com查看即可)
 //然后执行下面这条命令就可以上传了
 //gradlew clean build bintrayUpload -PbintrayUser=xxxx -PbintrayKey=xxxx -PdryRun=false
 

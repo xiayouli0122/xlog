@@ -12,11 +12,11 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        XLog.initialize(
-                Settings.getInstance()
-                .isDebug(BuildConfig.LOG_DEBUG)
-                .setAppTag("Yuri")
-        );
+//        XLog.initialize(
+//                Settings.getInstance()
+//                .isDebug(BuildConfig.LOG_DEBUG)
+//                .setAppTag("Yuri")
+//        );
 
         if (BuildConfig.DEBUG) {
             XLogCrashHandler.getInstance().init();

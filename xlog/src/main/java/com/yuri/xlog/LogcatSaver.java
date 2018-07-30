@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
  * This class is used for saving android logcat log to file.
  */
 public class LogcatSaver {
-	private static final String TAG = XLog.mSettings.appTag + "/LogcatSaver";
+	private static final String TAG = XLog.getSettings().appTag + "/LogcatSaver";
 	private boolean mRunning = false;
 	private Process mLogcatProcess = null;
 	private BufferedReader mReader = null;

@@ -1,7 +1,5 @@
 package com.yuri.xlog.util;
 
-import android.support.annotation.CheckResult;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import org.json.JSONArray;
@@ -26,7 +24,6 @@ public class XmlJsonParser {
      */
     private static final int JSON_INDENT = 4;
 
-    @CheckResult
     public static String xml(String xml) {
         if (TextUtils.isEmpty(xml)) {
             return "Empty/Null xml content.(This msg from logger)";
@@ -44,8 +41,7 @@ public class XmlJsonParser {
         }
     }
 
-    @CheckResult
-    public static String json(@Nullable String json) {
+    public static String json(String json) {
         if (TextUtils.isEmpty(json)) {
             return "Empty/Null json content.(This msg from logger)";
         }

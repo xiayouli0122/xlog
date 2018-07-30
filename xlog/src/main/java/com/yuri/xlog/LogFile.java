@@ -26,13 +26,13 @@ import java.nio.charset.Charset;
  * 
  */
 public class LogFile {
-    private static final String TAG = XLog.mSettings.appTag + "LogFile";
+    private static final String TAG = XLog.getSettings().appTag + "LogFile";
     private File mFile;
     private FileWriter mWriter;
     public static final String LOG_FOLDER_NAME = Environment
             .getExternalStorageDirectory().getAbsolutePath()
             + File.separator
-            + XLog.mSettings.appTag
+            + XLog.getSettings().appTag
             + File.separator
             + "Log";
 

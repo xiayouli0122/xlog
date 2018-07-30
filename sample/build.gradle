@@ -1,20 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'yuri'
-            keyPassword 'yuri123'
-            storeFile file('D:/Dev/Android/keystore/yuri.jks')
-            storePassword 'yuri123'
-        }
-    }
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 26
     defaultConfig {
         applicationId "com.yuri.xlog.sample"
-        minSdkVersion 14
-        targetSdkVersion 23
+        minSdkVersion 16
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -22,12 +13,10 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
             debuggable true
-            buildConfigField("boolean", "LOG_DEBUG", "false")
         }
+
         debug {
-            buildConfigField("boolean", "LOG_DEBUG", "true")
         }
     }
     if (JavaVersion.current().isJava8Compatible()) {
@@ -47,5 +36,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile project(':xlog')
-    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
 }

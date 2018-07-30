@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\Dev\android\workspace\xlog\XLog.iml" filepath="D:\Dev\android\workspace\xlog\XLog.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
-      <module fileurl="file://D:\Dev\android\workspace\xlog\sample\sample.iml" filepath="D:\Dev\android\workspace\xlog\sample\sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/xlog.iml" filepath="$PROJECT_DIR$/xlog.iml" />
-      <module fileurl="file://D:\Dev\android\workspace\xlog\xlog\xlog.iml" filepath="D:\Dev\android\workspace\xlog\xlog\xlog.iml" />
       <module fileurl="file://$PROJECT_DIR$/xlog/xlog-xlog.iml" filepath="$PROJECT_DIR$/xlog/xlog-xlog.iml" />
     </modules>
   </component>

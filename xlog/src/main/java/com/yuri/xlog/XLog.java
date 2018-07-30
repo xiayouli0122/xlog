@@ -19,7 +19,7 @@ public class XLog {
     private static final int LOG_E = 4;
     private static final int LOG_N = 5;
 
-    public static Settings mSettings;
+    private static Settings mSettings;
     private static LogFile mLogFile;
     private static LogcatSaver mLogcatSaver;
     private static boolean mIsWriteToFile = false;
@@ -39,6 +39,17 @@ public class XLog {
         if (mSettings.netTag == null) {
             mSettings.netTag = mSettings.appTag;
         }
+    }
+
+    public static Settings getSettings() {
+        if (mSettings == null) {
+            return Settings.getInstance();
+        }
+        return mSettings;
+    }
+
+    public static boolean isDebug() {
+        return getSettings().isDebug;
     }
 
     public static void v() {
@@ -62,7 +73,7 @@ public class XLog {
     }
 
     public static void logv(String tag, String message, Object... args) {
-        if (mSettings.isDebug) {
+        if (isDebug()) {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
@@ -101,7 +112,7 @@ public class XLog {
     }
 
     public static void logi(String tag, String message, Object... args) {
-        if (mSettings.isDebug) {
+        if (isDebug()) {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
@@ -139,7 +150,7 @@ public class XLog {
     }
 
     public static void logd(String tag, String message, Object... args) {
-        if (mSettings.isDebug) {
+        if (isDebug()) {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
@@ -177,7 +188,7 @@ public class XLog {
     }
 
     public static void logw(String tag, String message, Object... args) {
-        if (mSettings.isDebug) {
+        if (isDebug()) {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
@@ -229,7 +240,7 @@ public class XLog {
     }
 
     public static void lognet(String tag, String message, Object... args) {
-        if (mSettings.isDebug) {
+        if (isDebug()) {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
@@ -245,17 +256,17 @@ public class XLog {
             for (int i = 0; i < length; i += CHUNK_SIZE) {
                 int count = Math.min(length - i, CHUNK_SIZE);
                 //create a new String with system's default charset (which is UTF-8 for Android)
-                android.util.Log.d(mSettings.netTag + "/" + tag, new String(bytes, i, count));
+                android.util.Log.d(getSettings().netTag + "/" + tag, new String(bytes, i, count));
             }
         }
 
         if (mIsWriteToFile && mLogFile != null) {
-            mLogFile.writeLog(getLogString("N", mSettings.netTag + "/" + tag, message));
+            mLogFile.writeLog(getLogString("N", getSettings().netTag + "/" + tag, message));
         }
     }
 
     private static void print(int priority, String message, Object... args) {
-        if (!mSettings.isDebug && priority != LOG_E) {
+        if (!isDebug() && priority != LOG_E) {
             return;
         }
 
@@ -290,7 +301,7 @@ public class XLog {
      * 格式化打印Json数据，方便你阅读Logcat JSON数据
      */
     public static void json(String json) {
-        if (mSettings.isDebug) {
+        if (isDebug()) {
             print(LOG_D, XmlJsonParser.json(json));
         }
     }
@@ -299,7 +310,7 @@ public class XLog {
      * 格式化打印xml数据
      */
     public static void xml(String xml) {
-        if (mSettings.isDebug) {
+        if (isDebug()) {
             print(LOG_D, XmlJsonParser.xml(xml));
         }
     }
@@ -308,7 +319,7 @@ public class XLog {
      * 打印对象内部数据，包括但不限于List，String[]等等
      */
     public static void object(Object object) {
-        if (mSettings.isDebug) {
+        if (isDebug()) {
             print(LOG_D, ObjParser.parseObj(object));
         }
     }
@@ -323,11 +334,11 @@ public class XLog {
             formatMsg[1] = mesage + " ==> " + caller[1] + "(";
         }
 
-        if (mSettings.showMethodLink) {
+        if (getSettings().showMethodLink) {
             formatMsg[1] += caller[2] + ":" + caller[3];
         }
         formatMsg[1] += ")";
-        if (mSettings.showThreadInfo) {
+        if (getSettings().showThreadInfo) {
             formatMsg[1] += getThreadName();
         }
         return formatMsg;
@@ -364,7 +375,7 @@ public class XLog {
                 .getStackTrace();
         if (traceElements != null) {
             for (StackTraceElement element : traceElements) {
-                XLog.logd(mSettings.appTag, element.toString());
+                XLog.logd(getSettings().appTag, element.toString());
             }
         }
     }
@@ -373,7 +384,7 @@ public class XLog {
         StackTraceElement[] traceElements = e.getStackTrace();
         if (traceElements != null) {
             for (StackTraceElement element : traceElements) {
-                XLog.loge(mSettings.appTag, element.toString());
+                XLog.loge(getSettings().appTag, element.toString());
             }
         }
     }
@@ -382,7 +393,7 @@ public class XLog {
      * Start saving log to file.
      */
     public static boolean startSaveToFile() {
-        android.util.Log.d(mSettings.appTag, "startSaveToFile()");
+        android.util.Log.d(getSettings().appTag, "startSaveToFile()");
         stopAndSave();
 
         mLogFile = new LogFile(Util.getTime() + ".txt");
@@ -394,7 +405,7 @@ public class XLog {
             mLogFile.writeLog("**********Start Writing Log at time "
                     + Util.getTime() + "**********\n");
         } else {
-            android.util.Log.e(mSettings.appTag, "startSaveToFile.can not open file");
+            android.util.Log.e(getSettings().appTag, "startSaveToFile.can not open file");
             mLogFile = null;
             return false;
         }
@@ -408,7 +419,7 @@ public class XLog {
      * Stop log saving.
      */
     public static void stopAndSave() {
-        android.util.Log.d(mSettings.appTag, "stopAndSave()");
+        android.util.Log.d(getSettings().appTag, "stopAndSave()");
         if (mLogFile != null) {
             mLogFile.close();
             mLogFile = null;

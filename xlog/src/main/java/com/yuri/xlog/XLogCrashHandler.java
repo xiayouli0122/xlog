@@ -8,7 +8,7 @@ import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
 
 public class XLogCrashHandler implements UncaughtExceptionHandler {
-    private static final String TAG = XLog.mSettings.appTag + "/CrashHandler";
+    private static final String TAG = XLog.getSettings().appTag + "/CrashHandler";
     private static XLogCrashHandler mInstance = new XLogCrashHandler();
     private UncaughtExceptionHandler mDefaultHandler;
 
