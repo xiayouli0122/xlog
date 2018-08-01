@@ -10,8 +10,6 @@ import com.yuri.xlog.util.XmlJsonParser;
  * 能够自动打印出方法名以及类名
  */
 public class XLog {
-    private static final int INDEX_BASE = 6;
-
     private static final int LOG_V = 0;
     private static final int LOG_I = 1;
     private static final int LOG_D = 2;
@@ -24,32 +22,31 @@ public class XLog {
     private static LogcatSaver mLogcatSaver;
     private static boolean mIsWriteToFile = false;
 
-    private static String TAG;
-
     /**
      * Android's max limit for a log entry is ~4076 bytes,
      * so 4000 bytes is used as chunk size since default charset
      * is UTF-8
      */
-    public static final int CHUNK_SIZE = 4000;
+    private static final int CHUNK_SIZE = 4000;
 
-    public static void initialize(Settings settings) {
-        mSettings = settings;
-        TAG = mSettings.appTag + "/";
-        if (mSettings.netTag == null) {
-            mSettings.netTag = mSettings.appTag;
-        }
+    public static Settings initialize() {
+        mSettings = Settings.getInstance();
+        return mSettings;
     }
 
     public static Settings getSettings() {
         if (mSettings == null) {
-            return Settings.getInstance();
+            initialize();
         }
         return mSettings;
     }
 
-    public static boolean isDebug() {
+    private static boolean isDebug() {
         return getSettings().isDebug;
+    }
+
+    private static String getTag() {
+        return getSettings().appTag + "/";
     }
 
     public static void v() {
@@ -82,20 +79,20 @@ public class XLog {
             int length = bytes.length;
 
             if (length <= CHUNK_SIZE) {
-                android.util.Log.v(TAG + tag, message);
+                android.util.Log.v(getTag() + tag, message);
                 return;
             }
 
             for (int i = 0; i < length; i += CHUNK_SIZE) {
                 int count = Math.min(length - i, CHUNK_SIZE);
                 //create a new String with system's default charset (which is UTF-8 for Android)
-                android.util.Log.d(TAG + tag, new String(bytes, i, count));
+                android.util.Log.d(getTag() + tag, new String(bytes, i, count));
             }
-            android.util.Log.v(TAG + tag, message);
+            android.util.Log.v(getTag() + tag, message);
         }
 
         if (mIsWriteToFile && mLogFile != null) {
-            mLogFile.writeLog(getLogString("V", TAG + tag, message));
+            mLogFile.writeLog(getLogString("V", getTag() + tag, message));
         }
     }
 
@@ -121,19 +118,19 @@ public class XLog {
             int length = bytes.length;
 
             if (length <= CHUNK_SIZE) {
-                android.util.Log.i(TAG + tag, message);
+                android.util.Log.i(getTag() + tag, message);
                 return;
             }
 
             for (int i = 0; i < length; i += CHUNK_SIZE) {
                 int count = Math.min(length - i, CHUNK_SIZE);
                 //create a new String with system's default charset (which is UTF-8 for Android)
-                android.util.Log.i(TAG + tag, new String(bytes, i, count));
+                android.util.Log.i(getTag() + tag, new String(bytes, i, count));
             }
         }
 
         if (mIsWriteToFile && mLogFile != null) {
-            mLogFile.writeLog(getLogString("I", TAG + tag, message));
+            mLogFile.writeLog(getLogString("I", getTag() + tag, message));
         }
     }
 
@@ -159,19 +156,19 @@ public class XLog {
             int length = bytes.length;
 
             if (length <= CHUNK_SIZE) {
-                android.util.Log.d(TAG + tag, message);
+                android.util.Log.d(getTag() + tag, message);
                 return;
             }
 
             for (int i = 0; i < length; i += CHUNK_SIZE) {
                 int count = Math.min(length - i, CHUNK_SIZE);
                 //create a new String with system's default charset (which is UTF-8 for Android)
-                android.util.Log.d(TAG + tag, new String(bytes, i, count));
+                android.util.Log.d(getTag() + tag, new String(bytes, i, count));
             }
         }
 
         if (mIsWriteToFile && mLogFile != null) {
-            mLogFile.writeLog(getLogString("D", TAG + tag, message));
+            mLogFile.writeLog(getLogString("D", getTag() + tag, message));
         }
     }
 
@@ -192,11 +189,11 @@ public class XLog {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
-            android.util.Log.w(TAG + tag, message);
+            android.util.Log.w(getTag() + tag, message);
         }
 
         if (mIsWriteToFile && mLogFile != null) {
-            mLogFile.writeLog(getLogString("W", TAG + tag, message));
+            mLogFile.writeLog(getLogString("W", getTag() + tag, message));
         }
     }
 
@@ -224,10 +221,10 @@ public class XLog {
         if (args.length > 0) {
             message = String.format(message, args);
         }
-        android.util.Log.e(TAG + tag, message);
+        android.util.Log.e(getTag() + tag, message);
 
         if (mIsWriteToFile && mLogFile != null) {
-            mLogFile.writeLog(getLogString("E", TAG + tag, message));
+            mLogFile.writeLog(getLogString("E", getTag() + tag, message));
         }
     }
 
@@ -249,7 +246,7 @@ public class XLog {
             int length = bytes.length;
 
             if (length <= CHUNK_SIZE) {
-                android.util.Log.d(TAG + tag, message);
+                android.util.Log.d(getTag() + tag, message);
                 return;
             }
 
@@ -317,6 +314,7 @@ public class XLog {
 
     /**
      * 打印对象内部数据，包括但不限于List，String[]等等
+     * @deprecated
      */
     public static void object(Object object) {
         if (isDebug()) {
@@ -324,18 +322,28 @@ public class XLog {
         }
     }
 
+    /**
+     * 打印对象内部数据，包括但不限于List，String[]等等
+     */
+    public static void xobject(Object object) {
+        if (isDebug()) {
+            print(LOG_D, ObjParser.parseObj(object));
+        }
+    }
+
     private static String[] formatMessage(String mesage) {
-        String[] caller = getCaller();
+        StackTraceElement stackTraceElement = getTargetStackTraceElement();
         String[] formatMsg = new String[2];
-        formatMsg[0] = caller[0];
+        String className = stackTraceElement.getClassName();
+        formatMsg[0] = className.substring(className.lastIndexOf(".") + 1);
         if (mesage.equals("")) {
-            formatMsg[1] = caller[1] + "(";
+            formatMsg[1] = stackTraceElement.getMethodName() + "(";
         } else {
-            formatMsg[1] = mesage + " ==> " + caller[1] + "(";
+            formatMsg[1] = mesage + " ==> " + stackTraceElement.getMethodName() + "(";
         }
 
         if (getSettings().showMethodLink) {
-            formatMsg[1] += caller[2] + ":" + caller[3];
+            formatMsg[1] += stackTraceElement.getFileName() + ":" + stackTraceElement.getLineNumber();
         }
         formatMsg[1] += ")";
         if (getSettings().showThreadInfo) {
@@ -344,26 +352,20 @@ public class XLog {
         return formatMsg;
     }
 
-    /**
-     * get class name,method name and so on.
-     * @return class name,method file name,line number
-     */
-    private static String[] getCaller() {
-        String caller[] = new String[4];
-        try {
-            StackTraceElement[] traceElements = Thread.currentThread()
-                    .getStackTrace();
-            String className = traceElements[INDEX_BASE].getClassName();
-            className = className.substring(className.lastIndexOf(".") + 1);
-
-            caller[0] = className;
-            caller[1] = traceElements[INDEX_BASE].getMethodName();
-            caller[2] = traceElements[INDEX_BASE].getFileName();
-            caller[3] = traceElements[INDEX_BASE].getLineNumber() + "";
-        } catch (Exception e) {
-            e.printStackTrace();
+    private static StackTraceElement getTargetStackTraceElement() {
+        // find the target invoked method
+        StackTraceElement targetStackTrace = null;
+        boolean shouldTrace = false;
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        for (StackTraceElement stackTraceElement : stackTrace) {
+            boolean isLogMethod = stackTraceElement.getClassName().equals(XLog.class.getName());
+            if (shouldTrace && !isLogMethod) {
+                targetStackTrace = stackTraceElement;
+                break;
+            }
+            shouldTrace = isLogMethod;
         }
-        return caller;
+        return targetStackTrace;
     }
 
     private static String getThreadName() {

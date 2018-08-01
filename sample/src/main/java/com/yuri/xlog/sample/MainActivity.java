@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.yuri.xlog.Settings;
 import com.yuri.xlog.XLog;
 
 import java.util.ArrayList;
@@ -15,6 +16,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        XLog.initialize(Settings.getInstance().setAppTag("ahahah"));
+        XLog.initialize().setAppTag("YYYY");
 
         XLog.i();
         String title = "TITLE";
@@ -31,13 +35,14 @@ public class MainActivity extends AppCompatActivity {
         userInfo.userName = "lilei";
         userInfo.password = "123123";
         userInfo.age = 23;
-        XLog.object(userInfo);
+        XLog.xobject(userInfo);
+
 
         List<String> list = new ArrayList<>();
         for (int i = 0 ; i < 8; i++) {
             list.add("name" + i);
         }
-        XLog.object(list);
+        XLog.xobject(list);
 
         XLog.net("This is a net log");
 
@@ -136,6 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 "raymon725 发布于2016-07-27 11:12:10 | 582 次阅读\n" +
                 "\n" +
                 "IDC最近公布了一份2015年云市场调研报告，估计全球在商业云系统管理软件和软件即服务（SaaS）解决方案上的开支增长了24.6%（总额29亿美元）。IDC还预测，到2017年末的时候，会有超过80%的企业IT组织会采用横跨公共云、私有云、或非云服务的混合架构。而在“云优先、移动优先”的政策驱动下，微软公司也在榜单中名列前茅。";
-        XLog.d(longstr);
+//        XLog.d(longstr);
     }
 }

@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 publish {
@@ -41,7 +41,7 @@ publish {
     //项目名称
     artifactId = 'xlog'
     //版本号
-    publishVersion = '1.1.1'
+    publishVersion = '1.1.2'
     //描述，不重要
     desc = '修改类名'
     //网站，不重要

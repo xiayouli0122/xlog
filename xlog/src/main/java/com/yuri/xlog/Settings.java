@@ -6,8 +6,8 @@ package com.yuri.xlog;
  */
 public class Settings {
 
-    String appTag = "Yuri";
-    String netTag = "YuriNet";
+    String appTag = "XLog";
+    String netTag = "XLog";
 
     boolean showMethodLink = true;
 
@@ -55,7 +55,7 @@ public class Settings {
         return this;
     }
 
-    public Settings isDebug(boolean debug) {
+    public Settings setDebug(boolean debug) {
         this.isDebug = debug;
         return this;
     }
