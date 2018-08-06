@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         }
         XLog.xobject(list);
 
+        Test.INSTANCE.test();
+
         XLog.net("This is a net log");
 
         findViewById(R.id.btn_test)
