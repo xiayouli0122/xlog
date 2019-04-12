@@ -29,6 +29,8 @@ public class XLog {
      */
     private static final int CHUNK_SIZE = 4000;
 
+    private static final XLog mInstance = new XLog();
+
     public static Settings initialize() {
         mSettings = Settings.getInstance();
         return mSettings;
@@ -331,15 +333,16 @@ public class XLog {
         }
     }
 
-    private static String[] formatMessage(String mesage) {
-        StackTraceElement stackTraceElement = getTargetStackTraceElement();
+    private static String[] formatMessage(String message) {
+        System.out.println("messsage==========" + message);
+        StackTraceElement stackTraceElement = mInstance.getElement();
         String[] formatMsg = new String[2];
         String className = stackTraceElement.getClassName();
         formatMsg[0] = className.substring(className.lastIndexOf(".") + 1);
-        if (mesage.equals("")) {
+        if (message.equals("")) {
             formatMsg[1] = stackTraceElement.getMethodName() + "(";
         } else {
-            formatMsg[1] = mesage + " ==> " + stackTraceElement.getMethodName() + "(";
+            formatMsg[1] = message + " ==> " + stackTraceElement.getMethodName() + "(";
         }
 
         if (getSettings().showMethodLink) {
@@ -352,7 +355,17 @@ public class XLog {
         return formatMsg;
     }
 
+    protected StackTraceElement getElement() {
+        System.out.println("geElement:" + getMMM());
+        return getTargetStackTraceElement();
+    }
+
+    protected int getMMM() {
+        return 10;
+    }
+
     private static StackTraceElement getTargetStackTraceElement() {
+        System.out.println("getTargetStackTraceElement");
         // find the target invoked method
         StackTraceElement targetStackTrace = null;
         boolean shouldTrace = false;

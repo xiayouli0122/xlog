@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         XLog.w("warning");
         XLog.e("error:%s", "errorcode msssage");
 
+        MyLog.logx("ddddddddddddddddddddddd");
+
         String json = "{\"addressLatitude\":\"31.246017\",\"addressLongitude\":\"121.609757\",\"city\":\"上海市\",\"province\":\"上海市\",\"header\":{\"clientVersion\":\"1.0.01\",\"requestTime\":1464845832926,\"serviceVersion\":\"1.0\",\"sourceID\":\"1000\",\"userToken\":\"24a4012f-d0de-44f7-9a21-24b62de13f9d\"}}";
         XLog.json(json);
         UserInfo userInfo = new UserInfo();
