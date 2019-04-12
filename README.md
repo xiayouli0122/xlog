@@ -5,7 +5,7 @@ Android Log Library
 
 ### 使用方法
 ```grovvy
-compile 'com.yuri.xlog:xlog:1.0.1'
+compile 'com.yuri.xlog:xlog:1.1.2'
 ```
 
 （回答某位网友的提问：不支持Eclipse，谢谢）
