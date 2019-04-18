@@ -1,6 +1,7 @@
 package com.yuri.xlog.sample;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.yuri.xlog.XLogCrashHandler;
 import com.yuri.xlog.XLog;
@@ -20,7 +21,6 @@ public class MyApplication extends Application {
 
         if (BuildConfig.DEBUG) {
             XLogCrashHandler.getInstance().init();
-//            Log.startSaveToFile();
         }
     }
 
@@ -28,6 +28,5 @@ public class MyApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         XLog.d();
-//        Log.stopAndSave();
     }
 }

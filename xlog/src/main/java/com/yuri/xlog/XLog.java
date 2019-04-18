@@ -82,15 +82,13 @@ public class XLog {
 
             if (length <= CHUNK_SIZE) {
                 android.util.Log.v(getTag() + tag, message);
-                return;
+            } else {
+                for (int i = 0; i < length; i += CHUNK_SIZE) {
+                    int count = Math.min(length - i, CHUNK_SIZE);
+                    //create a new String with system's default charset (which is UTF-8 for Android)
+                    android.util.Log.v(getTag() + tag, new String(bytes, i, count));
+                }
             }
-
-            for (int i = 0; i < length; i += CHUNK_SIZE) {
-                int count = Math.min(length - i, CHUNK_SIZE);
-                //create a new String with system's default charset (which is UTF-8 for Android)
-                android.util.Log.d(getTag() + tag, new String(bytes, i, count));
-            }
-            android.util.Log.v(getTag() + tag, message);
         }
 
         if (mIsWriteToFile && mLogFile != null) {
@@ -121,13 +119,12 @@ public class XLog {
 
             if (length <= CHUNK_SIZE) {
                 android.util.Log.i(getTag() + tag, message);
-                return;
-            }
-
-            for (int i = 0; i < length; i += CHUNK_SIZE) {
-                int count = Math.min(length - i, CHUNK_SIZE);
-                //create a new String with system's default charset (which is UTF-8 for Android)
-                android.util.Log.i(getTag() + tag, new String(bytes, i, count));
+            } else {
+                for (int i = 0; i < length; i += CHUNK_SIZE) {
+                    int count = Math.min(length - i, CHUNK_SIZE);
+                    //create a new String with system's default charset (which is UTF-8 for Android)
+                    android.util.Log.i(getTag() + tag, new String(bytes, i, count));
+                }
             }
         }
 
@@ -159,13 +156,12 @@ public class XLog {
 
             if (length <= CHUNK_SIZE) {
                 android.util.Log.d(getTag() + tag, message);
-                return;
-            }
-
-            for (int i = 0; i < length; i += CHUNK_SIZE) {
-                int count = Math.min(length - i, CHUNK_SIZE);
-                //create a new String with system's default charset (which is UTF-8 for Android)
-                android.util.Log.d(getTag() + tag, new String(bytes, i, count));
+            } else {
+                for (int i = 0; i < length; i += CHUNK_SIZE) {
+                    int count = Math.min(length - i, CHUNK_SIZE);
+                    //create a new String with system's default charset (which is UTF-8 for Android)
+                    android.util.Log.d(getTag() + tag, new String(bytes, i, count));
+                }
             }
         }
 
@@ -191,7 +187,19 @@ public class XLog {
             if (args.length > 0) {
                 message = String.format(message, args);
             }
-            android.util.Log.w(getTag() + tag, message);
+
+            byte[] bytes = message.getBytes();
+            int length = bytes.length;
+
+            if (length <= CHUNK_SIZE) {
+                android.util.Log.w(getTag() + tag, message);
+            } else {
+                for (int i = 0; i < length; i += CHUNK_SIZE) {
+                    int count = Math.min(length - i, CHUNK_SIZE);
+                    //create a new String with system's default charset (which is UTF-8 for Android)
+                    android.util.Log.w(getTag() + tag, new String(bytes, i, count));
+                }
+            }
         }
 
         if (mIsWriteToFile && mLogFile != null) {
@@ -223,7 +231,19 @@ public class XLog {
         if (args.length > 0) {
             message = String.format(message, args);
         }
-        android.util.Log.e(getTag() + tag, message);
+
+        byte[] bytes = message.getBytes();
+        int length = bytes.length;
+
+        if (length <= CHUNK_SIZE) {
+            android.util.Log.e(getTag() + tag, message);
+        } else {
+            for (int i = 0; i < length; i += CHUNK_SIZE) {
+                int count = Math.min(length - i, CHUNK_SIZE);
+                //create a new String with system's default charset (which is UTF-8 for Android)
+                android.util.Log.e(getTag() + tag, new String(bytes, i, count));
+            }
+        }
 
         if (mIsWriteToFile && mLogFile != null) {
             mLogFile.writeLog(getLogString("E", getTag() + tag, message));
@@ -249,13 +269,12 @@ public class XLog {
 
             if (length <= CHUNK_SIZE) {
                 android.util.Log.d(getTag() + tag, message);
-                return;
-            }
-
-            for (int i = 0; i < length; i += CHUNK_SIZE) {
-                int count = Math.min(length - i, CHUNK_SIZE);
-                //create a new String with system's default charset (which is UTF-8 for Android)
-                android.util.Log.d(getSettings().netTag + "/" + tag, new String(bytes, i, count));
+            } else {
+                for (int i = 0; i < length; i += CHUNK_SIZE) {
+                    int count = Math.min(length - i, CHUNK_SIZE);
+                    //create a new String with system's default charset (which is UTF-8 for Android)
+                    android.util.Log.d(getSettings().netTag + "/" + tag, new String(bytes, i, count));
+                }
             }
         }
 
@@ -334,7 +353,6 @@ public class XLog {
     }
 
     private static String[] formatMessage(String message) {
-        System.out.println("messsage==========" + message);
         StackTraceElement stackTraceElement = mInstance.getElement();
         String[] formatMsg = new String[2];
         String className = stackTraceElement.getClassName();
@@ -356,7 +374,7 @@ public class XLog {
     }
 
     protected StackTraceElement getElement() {
-        System.out.println("geElement:" + getMMM());
+//        System.out.println("geElement:" + getMMM());
         return getTargetStackTraceElement();
     }
 
@@ -365,7 +383,7 @@ public class XLog {
     }
 
     private static StackTraceElement getTargetStackTraceElement() {
-        System.out.println("getTargetStackTraceElement");
+//        System.out.println("getTargetStackTraceElement");
         // find the target invoked method
         StackTraceElement targetStackTrace = null;
         boolean shouldTrace = false;

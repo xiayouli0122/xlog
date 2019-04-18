@@ -41,6 +41,20 @@ public class LogcatSaver {
 	 */
 	public void stop() {
 		mRunning = false;
+		mLogFile.close();
+
+		if (mLogcatProcess != null) {
+			mLogcatProcess.destroy();
+			mLogcatProcess = null;
+		}
+		if (mReader != null) {
+			try {
+				mReader.close();
+				mReader = null;
+			} catch (IOException e) {
+				XLog.loge(TAG, "error closing stream" + e);
+			}
+		}
 	}
 
 	class SaveThread extends Thread {
@@ -49,7 +63,8 @@ public class LogcatSaver {
 
 			try {
 				XLog.logd(TAG, "start run()");
-				mLogcatProcess = Runtime.getRuntime().exec("logcat -v time -d");
+//				mLogcatProcess = Runtime.getRuntime().exec("logcat -v time -d");
+				mLogcatProcess = Runtime.getRuntime().exec("logcat -v time");
 				XLog.logd(TAG, "start successs.");
 				mReader = new BufferedReader(new InputStreamReader(
 						mLogcatProcess.getInputStream()), 1024);
@@ -71,23 +86,23 @@ public class LogcatSaver {
 				XLog.loge(TAG, "error reading log" + e);
 				return;
 			} finally {
-				XLog.logd(TAG, "stopped");
+//				XLog.logd(TAG, "stopped");
 
-				if (mLogcatProcess != null) {
-					mLogcatProcess.destroy();
-					mLogcatProcess = null;
-				}
-				if (mReader != null) {
-					try {
-						mReader.close();
-						mReader = null;
-					} catch (IOException e) {
-						XLog.loge(TAG, "error closing stream" + e);
-					}
-				}
+//				if (mLogcatProcess != null) {
+//					mLogcatProcess.destroy();
+//					mLogcatProcess = null;
+//				}
+//				if (mReader != null) {
+//					try {
+//						mReader.close();
+//						mReader = null;
+//					} catch (IOException e) {
+//						XLog.loge(TAG, "error closing stream" + e);
+//					}
+//				}
 			}
-			mLogFile.close();
-			mRunning = false;
+//			mLogFile.close();
+//			mRunning = false;
 		}
 	}
 }
