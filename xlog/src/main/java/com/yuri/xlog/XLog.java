@@ -73,6 +73,10 @@ public class XLog {
 
     public static void logv(String tag, String message, Object... args) {
         if (isDebug()) {
+            if (message == null) {
+                message = "null";
+            }
+
             if (args.length > 0) {
                 message = String.format(message, args);
             }
@@ -110,6 +114,10 @@ public class XLog {
 
     public static void logi(String tag, String message, Object... args) {
         if (isDebug()) {
+            if (message == null) {
+                message = "null";
+            }
+
             if (args.length > 0) {
                 message = String.format(message, args);
             }
@@ -147,6 +155,10 @@ public class XLog {
 
     public static void logd(String tag, String message, Object... args) {
         if (isDebug()) {
+            if (message == null) {
+                message = "null";
+            }
+
             if (args.length > 0) {
                 message = String.format(message, args);
             }
@@ -184,6 +196,10 @@ public class XLog {
 
     public static void logw(String tag, String message, Object... args) {
         if (isDebug()) {
+            if (message == null) {
+                message = "null";
+            }
+
             if (args.length > 0) {
                 message = String.format(message, args);
             }
@@ -228,6 +244,10 @@ public class XLog {
     }
 
     public static void loge(String tag, String message, Object... args) {
+        if (message == null) {
+            message = "null";
+        }
+
         if (args.length > 0) {
             message = String.format(message, args);
         }
@@ -260,6 +280,10 @@ public class XLog {
 
     public static void lognet(String tag, String message, Object... args) {
         if (isDebug()) {
+            if (message == null) {
+                message = "null";
+            }
+
             if (args.length > 0) {
                 message = String.format(message, args);
             }
@@ -286,6 +310,10 @@ public class XLog {
     private static void print(int priority, String message, Object... args) {
         if (!isDebug() && priority != LOG_E) {
             return;
+        }
+
+        if (message == null) {
+            message = "null";
         }
 
         if (args.length > 0) {
@@ -357,6 +385,11 @@ public class XLog {
         String[] formatMsg = new String[2];
         String className = stackTraceElement.getClassName();
         formatMsg[0] = className.substring(className.lastIndexOf(".") + 1);
+
+        if (message == null) {
+            message = "null";
+        }
+
         if (message.equals("")) {
             formatMsg[1] = stackTraceElement.getMethodName() + "(";
         } else {
@@ -414,6 +447,9 @@ public class XLog {
     }
 
     public static void printStackTrace(Throwable e) {
+        if (e == null) {
+            return;
+        }
         StackTraceElement[] traceElements = e.getStackTrace();
         if (traceElements != null) {
             for (StackTraceElement element : traceElements) {

@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         userInfo.age = 23;
         XLog.xobject(userInfo);
 
+        XLog.d(null);
+        XLog.i(null);
+        XLog.e(null);
+
 
         List<String> list = new ArrayList<>();
         for (int i = 0 ; i < 8; i++) {

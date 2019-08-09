@@ -28,10 +28,10 @@ android {
         }
     }
 
-//    lintOptions {
-//        abortOnError false
+    lintOptions {
+        abortOnError false
 //        checkReleaseBuilds false
-//    }
+    }
 }
 
 dependencies {
@@ -47,9 +47,9 @@ publish {
     //项目名称
     artifactId = 'xlog'
     //版本号
-    publishVersion = '1.1.4'
+    publishVersion = '1.1.5'
     //描述，不重要
-    desc = '修改类名'
+    desc = '修复bug'
     //网站，不重要
     website = 'https://github.com/xiayouli0122/xlog'
 }
