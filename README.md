@@ -15,16 +15,12 @@ compile 'com.yuri.xlog:xlog:1.1.5'
 在Application onCreate中进行初始化
 
 ```java
-XLog.initialize(
-                Settings.getInstance()
-                .isDebug(BuildConfig.DEBUG)
-//隐藏方法链接，默认显示的
-                        //.hideMethodLink()
-//隐藏线程信息，默认显示的
-                        //.hideThreadInfo()
+XLog.initialize()
+                .setDebug(BuildConfig.DEBUG)
+                .hideMethodLink()  //隐藏方法链接，默认显示的
+                .hideThreadInfo() //隐藏线程信息，默认显示的
                 .setAppTag("Yuri")
-                .setNetTag("YuriNet")
-        );
+                .setNetTag("Net");
 ```
 
 ### 常用的Log打印方法
